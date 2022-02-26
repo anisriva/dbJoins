@@ -85,6 +85,7 @@ class DataSet:
         Prints count
         '''
         print(self.size())
+        print()
 
 
 def joiner(left_data_set:DataSet, right_data_set:DataSet, on:List[str])->DataSet:
