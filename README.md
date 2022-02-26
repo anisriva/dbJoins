@@ -145,3 +145,4 @@ id=5 || name='Jacky' || dept_id=101 || salary=5000.0 || dept_id_=101 || dept_nam
 id=2 || name='Jacob' || dept_id=102 || salary=3000.0 || dept_id_=102 || dept_name_='Data Science'
 id=4 || name='Jatin' || dept_id=102 || salary=4500.0 || dept_id_=102 || dept_name_='Data Science'
 id=3 || name='Jolly' || dept_id=103 || salary=3800.0 || dept_id_=103 || dept_name_='IT Operations'
+```
