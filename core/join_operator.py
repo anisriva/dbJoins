@@ -31,7 +31,7 @@ class Row:
             self.row = self.schema(*[None]*len(self.header))
     
     def __repr__(self) -> str:
-        return self.row.__repr__()
+        return self.show()
 
     def show(self):
         string = "+ "
