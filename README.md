@@ -136,6 +136,8 @@ joined_data_set.count()
 print("Joined data : ")
 joined_data_set.show()
 ```
+
+```
 Joined data count : 
 5
 
