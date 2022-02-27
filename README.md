@@ -154,13 +154,13 @@ id=3 || name='Jolly' || dept_id=103 || salary=3800.0 || dept_id_=103 || dept_nam
 
 ## Implementation
 
-### Datasets
+### Storing the data using DataSets with column definitions (type safety in future)
 
-Datasets will be a collection of Row objects which is a wrapper on top of the [namedtuple ](https://stackoverflow.com/questions/2970608/what-are-named-tuples-in-python)from pythons collection module.
+Datasets will be a collection of Row objects which is a wrapper on top of the [namedtuple](https://stackoverflow.com/questions/2970608/what-are-named-tuples-in-python)from pythons collection module.
 
 The idea is to add column information for each tuple in the list, we can further add types to these objects but for now we will only stick to column names and values.
 
-##### Row Object
+#### Row Object
 
 ```python
 class Row:
@@ -193,10 +193,10 @@ We can go ahead and write helper method to print the row with the column informa
         field_width = [len(col) for col in self.header]
         for col_name, col_val, width in zip(self.row._fields, self.row, field_width):
             string += "| {i}={j!r:<{k}} |".format(i=col_name, j=col_val, k=width)
-        return string+" +"
+        return string += " +"
 ```
 
-##### Datasets
+#### Dataset
 
 We will use __generate_data_set method to generate a list of Rows object using a simple list of tuple containing the data.
 
@@ -255,9 +255,9 @@ These methods will help us check the count of rows and print the data in pandas 
         print()
 ```
 
-##### Joiner (Algorithm)
+### Join Algorithm
 
-Before we go ahead and implement last and the core part i.e the joiner; lets see a simple sql statement which joins the emp_data and dept_data on the basis of the dept_id as the key.
+Before we go ahead and implement the last and the core part i.e the joiner; lets see a simple sql statement which joins the emp_data and dept_data on the basis of the dept_id as the key.
 
 ```sql
 select e.*, d.* 
@@ -274,18 +274,17 @@ def joiner(left_data_set:DataSet, right_data_set:DataSet, on:List[str])->DataSet
 
 Here are some key points:
 
-- The method will take 2 datasets and the joining key and return after the operation return a joined DataSet.
-- The fundamental data structure that we will use for joining the data sets will be a hash map or in our case a python dictionary. 
-
+- The method will take 2 datasets and the joining key and return a joined DataSet.
+- The fundamental data structure that we will use for joining the data sets will be a hash map and in this case a python dictionary. 
   The idea is to store left and right data with the common key.
 
 ```python
 joiner_dict = { "key" : ([Left DataSet] , [Right DataSet]) }
 ```
 
-- If both the sets have 1:1 relationship then for each key we will have just one tuple for both list of datasets; but if we have low cardinility on the key columns in either of the datasets then we will end up having more than one tuples (cross join)
+- If both the sets have 1:1 relationship for the key columns then for each key we will have just one tuple for both list of datasets in our dictionary; but if we have low cardinility on the key columns in either of the datasets then we will end up having more than one tuples.
 
-  Lets recap on the data:
+  Lets recap on the data to understand it better.
 
 ```python
 emp_data = [
@@ -306,12 +305,14 @@ dept_data = [
 In emp_data the departments are repeating a simple representation of how the data will be stored per key basis in the dictionary will look like below.
 
 ```python
-101 -> Justing, Jacky
-102 -> Jacob, Jatin
-103 -> Jolly
+{
+  101 : [Justin], [Jacky]
+  102 : [Jacob], [Jatin]
+  103 : [Jolly]
+}
 ```
 
-Below is how our data will be stored actually.
+Below is the representation of how our data will be actually stored.
 
 ```python
 {
@@ -351,10 +352,10 @@ Below is how our data will be stored actually.
 Lets discuss a few more things before writing the code:
 
 - [X] **Point 1 :** There can be some records which have orphan keys i.e these are not present in one or the other table in those scenarios we need to eliminate those records (keep this thought we will come back to this later).
-- [X] **Point 2 :** So esentially our goal is to match each left dataset to the right and vice versa which boils down to cartesian product within the key(cross join within the domain of that key).
-- [X] **Point 3 :** While performing a cartesian product of an empty list with a Row object we will eliminate that entry all together; so that solves the problem we discussed earlier in point 1 (None or [] * Row = None)
+- [X] **Point 2 :** Our goal is to match each left dataset to the right and vice versa which boils down to the concept of cartesian product within the key (cross join within the domain of that key).
+- [X] **Point 3 :** While performing a cartesian product of an empty list with a Row object we will eliminate that entry all together; so that will solve the problem that we had discussed earlier in point 1 (None or [] * Row = None)
 
-Now that we have all these concrete ideas in our minds lets implement a cartesian product of left and right datasets and concatenate (+) these to get joined rows with information from both the tables.
+Now that we have all these concrete ideas in our minds we know that we have to perform cartesian product of left and right datasets and concatenate (+) these to get joined rows.
 
 > **Note:** To do the cartesian product we will use product method from itertools library from python.
 
@@ -406,7 +407,7 @@ Thats it; finally we are able to solve the problem of performing inner joins, wh
 2. Joining on multiple keys
 3. Representation of data in DataSets
 
-However we can further modify this algorithm and create the implementation for the left/right and the outer joins also add type safety for the data by adding Column object.
+However we can further modify this algorithm and create the implementation for the left/right and the outer joins also add type safety for the data by implementing Column type and create DataSets of Rows of Columns.
 
 If you want to improve this or add more functionalities to it then I ll encourage you to contribute using this github repo->[Github_dbjoin_anisriva](https://https://github.com/anisriva/dbJoins.git)
 
