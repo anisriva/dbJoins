@@ -17,7 +17,7 @@ from itertools import product
 from typing import List, Tuple, Union, NamedTuple
 
 class Row:
-    def __init__(self, header:List[str], row:tuple=None)->None:
+    def __init__(self, header:List[str], row:tuple=None) -> None:
         '''
         A wrapper on top of namedtuple to create a Row object.
             :param header - List of column names
@@ -33,11 +33,11 @@ class Row:
     def __repr__(self) -> str:
         return self.show()
 
-    def show(self):
+    def show(self) -> str:
         string = "+ "
-        field_size = [len(col) for col in self.header]
-        for f_n, f_v, f_s in zip(self.row._fields, self.row, field_size):
-            string += "| {f_n}={f_v!r:<{f_s}} |".format(f_n=f_n,f_v=f_v,f_s=f_s)
+        field_width = [len(col) for col in self.header]
+        for col_name, col_val, width in zip(self.row._fields, self.row, field_width):
+            string += "| {i}={j!r:<{k}} |".format(i=col_name, j=col_val, k=width)
         return string+" +"
 
 class DataSet:
@@ -113,7 +113,7 @@ def joiner(left_data_set:DataSet, right_data_set:DataSet, on:List[str])->DataSet
     for right_row in right_rows:
         right_key = "".join([str(getattr(right_row.row, key)) for key in on])
         data_set.setdefault(right_key, ([],[]))[1].append(right_row.row)
-    
+    print(data_set)
     # logic for inner join
     for ds_cols in data_set.values():
         for left_cols, right_cols in product(*ds_cols):
