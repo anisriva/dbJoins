@@ -1,6 +1,6 @@
 # Creating your own database like join using \{code\}
 
-There are several tools tp combine datasets and perform different types of joins namely:
+There are several tools for combining datasets and perform different types of joins namely:
 
 * Inner
 * Outer
@@ -156,7 +156,7 @@ id=3 || name='Jolly' || dept_id=103 || salary=3800.0 || dept_id_=103 || dept_nam
 
 ### Storing the data using DataSets with column definitions (type safety in future)
 
-Datasets will be a collection of Row objects which is a wrapper on top of the [namedtuple](https://stackoverflow.com/questions/2970608/what-are-named-tuples-in-python)from pythons collection module.
+Datasets will be a collection of Row objects which is a wrapper on top of the [namedtuple](https://stackoverflow.com/questions/2970608/what-are-named-tuples-in-python) from pythons collection module.
 
 The idea is to add column information for each tuple in the list, we can further add types to these objects but for now we will only stick to column names and values.
 
@@ -409,6 +409,6 @@ Thats it; finally we are able to solve the problem of performing inner joins, wh
 
 However we can further modify this algorithm and create the implementation for the left/right and the outer joins also add type safety for the data by implementing Column type and create DataSets of Rows of Columns.
 
-If you want to improve this or add more functionalities to it then I ll encourage you to contribute using this github repo->[Github_dbjoin_anisriva](https://https://github.com/anisriva/dbJoins.git)
+If you want to improve this or add more functionalities to it then I ll encourage you to contribute using this github repo->[Github_dbjoin_anisriva](https://github.com/anisriva/dbJoins.git)
 
 Finally, I'd like to conclude that this is just an experimental exercise and ofcourse there are better tools to perform this operation.
