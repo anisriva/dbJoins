@@ -409,6 +409,6 @@ Thats it; finally we are able to solve the problem of performing inner joins, wh
 
 However we can further modify this algorithm and create the implementation for the left/right and the outer joins also add type safety for the data by implementing Column type and create DataSets of Rows of Columns.
 
-If you want to improve this or add more functionalities to it then I ll encourage you to contribute using this github repo->[Github_dbjoin_anisriva](https://https://github.com/anisriva/dbJoins.git)
+If you want to improve this or add more functionalities to it then I ll encourage you to contribute using this github repo->[Github_dbjoin_anisriva](https://github.com/anisriva/dbJoins.git)
 
 Finally, I'd like to conclude that this is just an experimental exercise and ofcourse there are better tools to perform this operation.
