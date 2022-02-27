@@ -156,7 +156,7 @@ id=3 || name='Jolly' || dept_id=103 || salary=3800.0 || dept_id_=103 || dept_nam
 
 ### Storing the data using DataSets with column definitions (type safety in future)
 
-Datasets will be a collection of Row objects which is a wrapper on top of the [namedtuple](https://stackoverflow.com/questions/2970608/what-are-named-tuples-in-python)from pythons collection module.
+Datasets will be a collection of Row objects which is a wrapper on top of the [namedtuple](https://stackoverflow.com/questions/2970608/what-are-named-tuples-in-python) from pythons collection module.
 
 The idea is to add column information for each tuple in the list, we can further add types to these objects but for now we will only stick to column names and values.
 
